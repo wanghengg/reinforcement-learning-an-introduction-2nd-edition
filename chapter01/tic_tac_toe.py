@@ -160,18 +160,18 @@ class Judger:
         current_state = State()
         self.p1.set_state(current_state)
         self.p2.set_state(current_state)
+        if print:
+            current_state.print()
         while True:
             player = next(alternator)
-            if print:
-                current_state.print()
             [i, j, symbol] = player.act()
             next_state_hash = current_state.next_state(i, j, symbol).hash()
             current_state, is_end = all_states[next_state_hash]
             self.p1.set_state(current_state)
             self.p2.set_state(current_state)
+            if print:
+                current_state.print()
             if is_end:
-                if print:
-                    current_state.print()
                 return current_state.winner
 
 

@@ -113,7 +113,8 @@ def get_all_states_impl(current_state, current_symbol, all_states):
                     isEnd = newState.is_end()
                     all_states[newHash] = (newState, isEnd)
                     if not isEnd:
-                        get_all_states_impl(newState, -current_symbol, all_states)
+                        get_all_states_impl(newState, -current_symbol,
+                                            all_states)
 
 
 def get_all_states():
@@ -219,7 +220,8 @@ class Player:
 
         for i in reversed(range(len(self.states) - 1)):
             state = self.states[i]
-            td_error = self.greedy[i] * (self.estimations[self.states[i + 1]] - self.estimations[state])
+            td_error = self.greedy[i] * (self.estimations[self.states[i + 1]] -
+                                         self.estimations[state])
             self.estimations[state] += self.step_size * td_error
 
     # choose an action based on the state
@@ -231,7 +233,8 @@ class Player:
             for j in range(BOARD_COLS):
                 if state.data[i, j] == 0:
                     next_positions.append([i, j])
-                    next_states.append(state.next_state(i, j, self.symbol).hash())
+                    next_states.append(
+                        state.next_state(i, j, self.symbol).hash())
 
         if np.random.rand() < self.epsilon:
             action = next_positions[np.random.randint(len(next_positions))]
@@ -249,11 +252,15 @@ class Player:
         return action
 
     def save_policy(self):
-        with open('policy_%s.bin' % ('first' if self.symbol == 1 else 'second'), 'wb') as f:
+        with open(
+                'policy_%s.bin' % ('first' if self.symbol == 1 else 'second'),
+                'wb') as f:
             pickle.dump(self.estimations, f)
 
     def load_policy(self):
-        with open('policy_%s.bin' % ('first' if self.symbol == 1 else 'second'), 'rb') as f:
+        with open(
+                'policy_%s.bin' % ('first' if self.symbol == 1 else 'second'),
+                'rb') as f:
             self.estimations = pickle.load(f)
 
 
@@ -303,7 +310,8 @@ def train(epochs):
             player1_win += 1
         if winner == -1:
             player2_win += 1
-        print('Epoch %d, player 1 win %.02f, player 2 win %.02f' % (i, player1_win / i, player2_win / i))
+        print('Epoch %d, player 1 win %.02f, player 2 win %.02f' %
+              (i, player1_win / i, player2_win / i))
         player1.backup()
         player2.backup()
         judger.reset()
@@ -320,14 +328,15 @@ def compete(turns):
     player2.load_policy()
     player1_win = 0.0
     player2_win = 0.0
-    for i in range(0, turns):
+    for _ in range(0, turns):
         winner = judger.play()
         if winner == 1:
             player1_win += 1
         if winner == -1:
             player2_win += 1
         judger.reset()
-    print('%d turns, player 1 win %.02f, player 2 win %.02f' % (turns, player1_win / turns, player2_win / turns))
+    print('%d turns, player 1 win %.02f, player 2 win %.02f' %
+          (turns, player1_win / turns, player2_win / turns))
 
 
 # The game is a zero sum game. If both players are playing with an optimal strategy, every game will end in a tie.

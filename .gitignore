@@ -1,3 +1,4 @@
 /.vscode/
 src.code-workspace
 *.bin
+**/__pycache__/

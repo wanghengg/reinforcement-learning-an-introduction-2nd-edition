@@ -2,3 +2,5 @@
 src.code-workspace
 *.bin
 **/__pycache__/
+*.pkl
+/.idea/

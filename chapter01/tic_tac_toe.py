@@ -342,7 +342,7 @@ def compete(turns):
 """
 The game is a zero sum game. If both players are playing with an optimal
 strategy, every game will end in a tie.
-So we test whether the AI can fuarantee at least a tie if it foes second.
+So we test whether the AI can guarantee at least a tie if it foes second.
 """
 
 

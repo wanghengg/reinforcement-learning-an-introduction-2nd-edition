@@ -25,6 +25,7 @@ class SampleAverageEstimator(BaseEstimator):
 
         self.n_updates = 0
 
+    # 更新价值
     def update(self, reward):
         if self.n_updates == 0:
             self.value = reward
@@ -42,11 +43,8 @@ class ExponentialRecencyWeightedEstimator(BaseEstimator):
 
         self.n_updates = 0
 
+    # 更新价值
     def update(self, reward):
         self.value += self.step_size * (reward - self.value)
         self.n_updates += 1
         return None
-
-
-
-

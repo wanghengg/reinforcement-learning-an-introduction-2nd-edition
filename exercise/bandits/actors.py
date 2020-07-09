@@ -30,13 +30,16 @@ class EpsilonGreedyActor(BaseActor):
         self.possible_actions = np.arange(self.n_actions)
         self.explore = None
 
+    # 判断动作选择是贪心还是非贪心
     def update(self):
         self.explore = self.random_state.binomial(n=1, p=self.epsilon)
         return None
 
+    # 探索动作，从所有可选动作中任选一个
     def explorative_action(self):
         return self.random_state.choice(self.possible_actions, 1)[0]
 
+    # 利用动作，从最优动作中任选一个
     def exploitative_action(self, optimal_actions):
         if len(optimal_actions) == 1:
             return optimal_actions[0]

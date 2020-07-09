@@ -47,7 +47,7 @@ class Bandit:
         # estimation for each action
         self.q_estimation = np.zeros(self.k) + self.initial
 
-        # # of chosen times for each action
+        # chosen times for each action
         self.action_count = np.zeros(self.k)
 
         self.best_action = np.argmax(self.q_true)
@@ -97,7 +97,9 @@ class Bandit:
             self.q_estimation[action] += self.step_size * (reward - self.q_estimation[action])
         return reward
 
-
+# @runs: 独立重复试验次数
+# @time: 时间步数
+# @bandits: 多臂赌博机
 def simulate(runs, time, bandits):
     rewards = np.zeros((len(bandits), runs, time))
     best_action_counts = np.zeros(rewards.shape)

@@ -13,14 +13,14 @@ import matplotlib; matplotlib.use('TKAgg')
 import numpy as np
 import pandas as pd
 
-from bandits import (
+from exercise.bandits import (
     ExponentialRecencyWeightedEstimator,
     SampleAverageEstimator,
     EpsilonGreedyActor,
     ActionValueBanditAgent,
     utils
 )
-import constants as c
+import exercise.constants as c
 
 
 N_STEPS = 200000
@@ -60,7 +60,7 @@ if __name__ == "__main__":
     constant_step_outputs = dict()
     with ProcessPoolExecutor(4) as executor:
         for param in PARAMS:
-            print('Sumbitting', param)
+            print('Submitting', param)
 
             sample_average_agent = ActionValueBanditAgent(
                     estimators=[

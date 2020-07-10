@@ -12,8 +12,8 @@ import matplotlib; matplotlib.use('svg')
 import matplotlib.pyplot as plt
 import pandas as pd
 
-import constants as c
-import plotting
+import exercise.constants as c
+from exercise import plotting
 
 if __name__ == '__main__':
     samples = pd.read_pickle(
